@@ -1,4 +1,4 @@
-package com.jbk.springauthor.PublicationManagement.author.entity;
+package com.jbk.springauthor.PublicationManagement.publication.entity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +20,7 @@ public class Publication  implements java.io.Serializable {
 
 
     // Fields    
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -142,6 +143,7 @@ public class Publication  implements java.io.Serializable {
 		return "Publication [pid=" + pid + ", title=" + title + ", pyear=" + pyear + ", genre=" + genre + ", hero="
 				+ hero + ", type_maz=" + type_maz + ", type_pub=" + type_pub + "]";
 	}
+    
     
     
 }

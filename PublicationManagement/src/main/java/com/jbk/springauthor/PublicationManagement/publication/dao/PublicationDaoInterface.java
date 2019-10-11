@@ -9,7 +9,7 @@ public interface PublicationDaoInterface {
 	public Publication findById(int id);
 	public void save(Publication publication);
 	public void deleteById(int id);
-	void saveorUpdate(Publication publication);
+	public void saveorupdate(Publication publication);
 
 
 }

@@ -1,4 +1,4 @@
-package com.jbk.springauthor.PublicationManagement.author.entity;
+package com.jbk.springauthor.PublicationManagement.publication.entity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
