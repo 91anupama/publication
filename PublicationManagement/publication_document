@@ -1,24 +1,30 @@
-create table STUDENT (
-   student_id BIGINT NOT NULL AUTO_INCREMENT,
-   first_name VARCHAR(30) NOT NULL,
-   last_name  VARCHAR(30) NOT NULL,
-   PRIMARY KEY (student_id)
+create database authordata;
+
+create table authordata.author (
+   aid BIGINT NOT NULL AUTO_INCREMENT,
+   author_name VARCHAR(30) NOT NULL,
+   PRIMARY KEY (aid)
 );
  
  
-create table SUBJECT (
-   subject_id BIGINT NOT NULL AUTO_INCREMENT,
-   name VARCHAR(30) NOT NULL,
-   PRIMARY KEY (subject_id)
+create table authordata.publication (
+   pid BIGINT NOT NULL AUTO_INCREMENT,
+   genre VARCHAR(30) NOT NULL,
+   hero VARCHAR(30) NOT NULL,
+   pyear VARCHAR(30) NOT NULL,
+   title VARCHAR(30) NOT NULL,
+   type_maz VARCHAR(30) NOT NULL,
+   type_pub VARCHAR(30) NOT NULL,
+   PRIMARY KEY (pid)
 );
  
  
-CREATE TABLE STUDENT_SUBJECT (
-    student_id BIGINT NOT NULL,
-    subject_id BIGINT NOT NULL,
-    PRIMARY KEY (student_id, subject_id),
-    CONSTRAINT FK_STUDENT FOREIGN KEY (student_id) REFERENCES STUDENT (student_id),
-    CONSTRAINT FK_SUBJECT FOREIGN KEY (subject_id) REFERENCES SUBJECT (subject_id)
+CREATE TABLE authordata.author_publication (
+    aid BIGINT NOT NULL,
+    pid BIGINT NOT NULL,
+    PRIMARY KEY (aid, pid),
+    CONSTRAINT FK_author FOREIGN KEY (aid) REFERENCES author (aid),
+    CONSTRAINT FK_publication FOREIGN KEY (pid) REFERENCES publication (pid)
 );
 
 

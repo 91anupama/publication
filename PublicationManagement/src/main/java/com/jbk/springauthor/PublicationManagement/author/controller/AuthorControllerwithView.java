@@ -22,53 +22,66 @@ import com.jbk.springauthor.PublicationManagement.author.service.AuthorServiceIm
 import com.jbk.springauthor.PublicationManagement.publication.entity.Publication;
 
 @RestController
-@RequestMapping("/author")
-public class AuthorController {
+public class AuthorControllerwithView {
 
 	@Autowired
 	private AuthorServiceImpl authorService;
 
 
 
-	@GetMapping(value = {"/"})
-	public List<Author> getAuthors() {
+	@GetMapping(value = {"/", "/home", "/index"})
+	public ModelAndView getAuthors() {
+		ModelAndView mav = new ModelAndView("authorList");
 		List<Author> list = authorService.findAll();
-		
-		return list;
+		mav.addObject("list", list);
+		return mav;
 	}
 	
+	@RequestMapping("/openAuthorView")
+	public ModelAndView openAuthorAddView() {
+		ModelAndView mav = new ModelAndView("authorsAdd");
+		mav.addObject("author", new Author());
+		return mav;
+	}
 	
-		@PostMapping("/authorcreate")
-	public void createAuthor(@RequestBody Author author) {
+	@PostMapping("/authorcreate")
+	public ModelAndView  createAuthor(@ModelAttribute ("author") Author author) {
+	   
+		ModelAndView mav = new ModelAndView("authorsList");
 		authorService.save(author);
-	
+		List<Author> list = authorService.findAll();
+		mav.addObject("list", list);
+		return mav;
 	}
 	
 	
 	//To update Author
-		@PutMapping("/authorupdate/{aid}")
-		public void updateAuthor(@RequestBody Author author,@PathVariable int aid) {
-			authorService.saveOrUpdate(author);
+		@PutMapping("/authorupdate")
+		public Author updateAuthor(@RequestBody Author author) {
+			return author;
 		}
 		
 		
-		@GetMapping("/findAuthor/{aid}")
-		public Author  findById(@PathVariable int aid) {
+		@RequestMapping("/author/{aid}")
+		public ModelAndView findById(@PathVariable("aid") int aid) {
+			ModelAndView mav = new ModelAndView("authorsAdd");
 			Author author = authorService.findById(aid);
 			if(author == null) {
 				throw new RuntimeException("Author not found"+aid);
 			}
-		
-			return author;
+			mav.addObject("author", author);
+			return mav;
 		}
 		
 		//to Delete Author
 		
-		@DeleteMapping("/deleteAuthor/{aid}")
-		public List<Author>  deleteAuthor(@PathVariable int aid) {
+		@DeleteMapping("/authordelete/{aid}")
+		public ModelAndView  deleteAuthor(@PathVariable int aid) {
+			ModelAndView mav = new ModelAndView("authorsList");
 			authorService.deleteById(aid);
 			List<Author> list = authorService.findAll();
-			return list;
+			mav.addObject("list", list);
+			return mav;
 
 		}
 

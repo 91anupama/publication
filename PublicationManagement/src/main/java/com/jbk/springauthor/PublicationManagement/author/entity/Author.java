@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -26,7 +27,7 @@ public class Author{
 
     // Fields    
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="aid")
      private Integer aid;
 	@Column(name="author_name")
@@ -76,28 +77,16 @@ public class Author{
 	public void setPublications(List<Publication> publications) {
 		this.publications = publications;
 	}
-	  @Override
-	    public int hashCode() {
-	        final int prime = 31;
-	        int result = 1;
-	        result = prime * result + (int) (aid ^ (aid >>> 32));
-	        return result;
-	    }
-	 
-	    @Override
-	    public boolean equals(Object obj) {
-	        if (this == obj)
-	            return true;
-	        if (obj == null)
-	            return false;
-	        if (!(obj instanceof Author))
-	            return false;
-	        Author other = (Author) obj;
-	        if (aid != other.aid)
-	            return false;
-	        return true;
-	    }
 
+	/*
+	 * @Override public int hashCode() { final int prime = 31; int result = 1;
+	 * result = prime * result + (int) (aid ^ (aid >>> 32)); return result; }
+	 * 
+	 * @Override public boolean equals(Object obj) { if (this == obj) return true;
+	 * if (obj == null) return false; if (!(obj instanceof Author)) return false;
+	 * Author other = (Author) obj; if (aid != other.aid) return false; return true;
+	 * }
+	 */
 		@Override
 		public String toString() {
 			return "Author [aid=" + aid + ", author_name=" + author_name + ", publications=" + publications + "]";
