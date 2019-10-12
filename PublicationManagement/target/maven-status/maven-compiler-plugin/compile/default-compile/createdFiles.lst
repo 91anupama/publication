@@ -1,3 +1,4 @@
+com\jbk\springauthor\PublicationManagement\author\controller\AuthorControllerwithView.class
 com\jbk\springauthor\PublicationManagement\publication\entity\Publication.class
 com\jbk\springauthor\PublicationManagement\publication\controller\PublicationController.class
 com\jbk\springauthor\PublicationManagement\author\entity\Publication.class
