@@ -19,6 +19,13 @@ public interface PublicationDao {
 	
 	/* To update publication */
 	public void saveorupdate(Publication publication);
+	
+	/* To select publication by author */
+	public List<Publication> getPublicationWithAuthor(String author_name);
+		
+	
+
+		
 
 
 }

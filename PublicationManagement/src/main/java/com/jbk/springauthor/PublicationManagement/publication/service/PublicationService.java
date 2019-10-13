@@ -21,4 +21,6 @@ public interface PublicationService {
 	/* To update publication */
 	public void saveorupdate(Publication publication);
 
+	public List<Publication> getPublicationWithAuthor(String author_name);
+
 }
