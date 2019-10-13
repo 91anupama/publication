@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.jbk.springauthor.PublicationManagement.publication.entity.Publication;
 import com.jbk.springauthor.PublicationManagement.publication.service.PublicationService;
@@ -56,8 +57,12 @@ public class PublicationController {
 	@DeleteMapping("/deletepublication/{pid}")
 	public void deletePublication(@PathVariable int pid) {
 		publicationService.deleteById(pid);
+	}
+	
+	@PostMapping("/getpublicationwithauthor")
+	public List<Publication> getPublicationWithAuthor(@RequestParam String author_name) {
 		
-
+		return publicationService.getPublicationWithAuthor(author_name);
 	}
 
 }

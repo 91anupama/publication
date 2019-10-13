@@ -56,4 +56,18 @@ public class PublicationDaoImpl implements PublicationDao {
 		session.saveOrUpdate(publication);
 	}
 
+
+	@Override
+	public List<Publication> getPublicationWithAuthor(String author_name) {
+		Session session = entityManager.unwrap(Session.class);
+		/*
+		 * @SuppressWarnings("unchecked") Query <Publication>query =
+		 * session.createQuery("SELECT title FROM Publication p JOIN p.authors a WHERE
+		 * a.author_name = :"author_name"); query.setParameter("aid", author.getId());
+		 * 
+		 * List<Publication> publications = query.getResultList();
+		 */
+		return null;
+	}
+
 }
