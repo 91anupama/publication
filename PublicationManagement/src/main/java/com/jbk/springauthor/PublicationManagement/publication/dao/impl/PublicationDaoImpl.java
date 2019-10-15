@@ -54,14 +54,18 @@ public class PublicationDaoImpl implements PublicationDao {
 		session.saveOrUpdate(publication);
 	}
 
+
 	@SuppressWarnings("unchecked")
+
 	@Override
 	public List<Publication> getPublicationWithAuthor(String author_name) {
 		Session session = entityManager.unwrap(Session.class);
 		String[] authors = { author_name };
 		String hql = "select distinct p from Publication p " + "join p.authors a "
 				+ "where a.author_name in (:authors)";
+
 		@SuppressWarnings("rawtypes")
+
 		Query query = session.createQuery(hql);
 		query.setParameterList("authors", authors);
 		List<Publication> publications = query.list();
@@ -76,6 +80,7 @@ public class PublicationDaoImpl implements PublicationDao {
 		 * publications;
 		 */
 	}
+
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
@@ -140,5 +145,6 @@ public class PublicationDaoImpl implements PublicationDao {
 		return publications;
 
 	}
+
 
 }

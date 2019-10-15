@@ -22,7 +22,9 @@ public class AuthorController {
 	private AuthorService authorService;
 
 
+
 	@GetMapping(value = {"/author/all"})
+
 	public List<Author> getAuthors() {
 		List<Author> list = authorService.findAll();
 		return list;

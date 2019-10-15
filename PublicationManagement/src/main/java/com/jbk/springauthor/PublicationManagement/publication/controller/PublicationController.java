@@ -40,7 +40,9 @@ public class PublicationController {
 	}
 
 
+
 	@PostMapping("/publication/add")
+
 	public Publication createPublication(@RequestBody Publication publication) {		//publication.setPid(0);
 		publicationService.save(publication);
 
@@ -60,6 +62,7 @@ public class PublicationController {
 		publicationService.deleteById(pid);
 	}
 	
+
 	@PostMapping("/publication/getpublication_withauthor")
 	public List<Publication> getPublicationWithAuthor(@RequestParam String author_name) {
 		
@@ -76,6 +79,12 @@ public class PublicationController {
 	public List<Publication> getPublicationWithAuthorType_p_Hero(@RequestParam String author_name,@RequestParam String type_pub,@RequestParam String sub_type,@RequestParam String sub_type_val) {
 		
 		return publicationService.getPublicationWithAuthorType_p_sub_type(author_name,type_pub,sub_type,sub_type_val);
+
+	@PostMapping("/getpublicationwithauthor")
+	public List<Publication> getPublicationWithAuthor(@RequestParam String author_name) {
+		
+		return publicationService.getPublicationWithAuthor(author_name);
+
 	}
 
 }

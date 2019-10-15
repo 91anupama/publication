@@ -50,6 +50,7 @@ public class PublicationServiceImpl implements PublicationService {
 		return publicationDao.getPublicationWithAuthor(author_name);
 	}
 
+
 	@Override
 	public List<Publication> getPublicationWithAuthorType_p(String author_name, String type_pub) {
 		
@@ -61,5 +62,6 @@ public class PublicationServiceImpl implements PublicationService {
 			String sub_type,String sub_type_val) {
 		return publicationDao.getPublicationWithAuthorType_p_sub_type(author_name,type_pub,sub_type,sub_type_val);
 	}
+
 
 }

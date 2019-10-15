@@ -32,4 +32,6 @@ public interface PublicationService {
 	//To get publication having particular author name and publication type with sub_type
 	public List<Publication> getPublicationWithAuthorType_p_sub_type(String author_name, String type_pub, String sub_type, String sub_type_val);
 
+	public List<Publication> getPublicationWithAuthor(String author_name);
+
 }
