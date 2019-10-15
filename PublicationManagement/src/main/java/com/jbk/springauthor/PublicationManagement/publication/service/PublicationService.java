@@ -20,6 +20,17 @@ public interface PublicationService {
 
 	/* To update publication */
 	public void saveorupdate(Publication publication);
+	
+	//To get publication having particular author name
+
+	public List<Publication> getPublicationWithAuthor(String author_name);
+	
+	//To get publication having particular author name and publication type
+
+	public List<Publication> getPublicationWithAuthorType_p(String author_name, String type_pub);
+
+	//To get publication having particular author name and publication type with sub_type
+	public List<Publication> getPublicationWithAuthorType_p_sub_type(String author_name, String type_pub, String sub_type, String sub_type_val);
 
 	public List<Publication> getPublicationWithAuthor(String author_name);
 
