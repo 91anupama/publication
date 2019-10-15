@@ -1,10 +1,14 @@
 package com.jbk.springauthor.PublicationManagement.author.entity;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
@@ -19,6 +23,9 @@ public class Author {
 	private Integer aid;
 	@Column(name = "author_name")
 	private String author_name;
+	 @ManyToMany(fetch = FetchType.LAZY, mappedBy = "authors")
+	   private Set<Publication> publications=new HashSet<>();
+
 
 	/*
 	 * @ManyToMany(cascade = CascadeType.ALL)
@@ -37,13 +44,16 @@ public class Author {
 	}
 
 	/** minimal constructor */
-	public Author(String author_name) {
 
-		this.author_name = author_name;
-	}
-
+	
 	public Integer getAid() {
 		return aid;
+	}
+
+	public Author(String author_name) {
+		super();
+		this.author_name = author_name;
+		
 	}
 
 	public void setAid(Integer aid) {
@@ -58,13 +68,19 @@ public class Author {
 		this.author_name = author_name;
 	}
 
+	
+	/*
+	 * public Set<Publication> getPublications() { return publications; }
+	 */
+	/*
+	 * public void setPublications(Set<Publication> publications) {
+	 * this.publications = publications; }
+	 */
+
 	@Override
 	public String toString() {
-		return "Author [aid=" + aid + ", author_name=" + author_name + "]";
+		return "Author [author_name=" + author_name +  "]";
 	}
-	
-	
-
 	/*
 	 * public List<Publication> getPublications() { return publications; }
 	 * 

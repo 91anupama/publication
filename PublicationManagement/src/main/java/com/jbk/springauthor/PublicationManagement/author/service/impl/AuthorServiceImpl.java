@@ -25,19 +25,21 @@ public class AuthorServiceImpl implements AuthorService {
 
 	}
 
-	@Transactional
+
 	@Override
+	@Transactional
 	public void save(Author author) {
 		authorDao.save(author);
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(int id) {
 		authorDao.deleteById(id);
 	}
-
-	@Transactional
+	
 	@Override
+	@Transactional
 	public void saveOrUpdate(Author author) {
 		authorDao.saveOrUpdate(author);
 

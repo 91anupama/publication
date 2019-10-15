@@ -19,6 +19,22 @@ public interface PublicationDao {
 	
 	/* To update publication */
 	public void saveorupdate(Publication publication);
+	
+	/* To select publication by author */
+	public List<Publication> getPublicationWithAuthor(String author_name);
+	
+	/* To select publication by author with specific publication type */
+
+	public List<Publication> getPublicationWithAuthorType_p(String author_name, String type_pub);
+
+	/* To select publication by author with specific publication type  n sub type*/
+
+	public List<Publication> getPublicationWithAuthorType_p_sub_type(String author_name, String type_pub,
+			String sub_type, String sub_type_val);
+		
+	
+
+		
 
 
 }

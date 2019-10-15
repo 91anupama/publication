@@ -23,8 +23,21 @@ CREATE TABLE authordata.author_publication (
     aid BIGINT NOT NULL,
     pid BIGINT NOT NULL,
     PRIMARY KEY (aid, pid),
-    CONSTRAINT FK_author FOREIGN KEY (aid) REFERENCES author (aid),
+    CONSTRAINT FK_author FOREIGN KEY (aid) REFERENCES author (aid)
+     ,
     CONSTRAINT FK_publication FOREIGN KEY (pid) REFERENCES publication (pid)
+    
 );
+
+
+SELECT authordata.publication.* FROM authordata.publication
+INNER JOIN authordata.author_publication ON authordata.publication.pid = authordata.author_publication.pid
+WHERE authordata.author_publication.aid = 1;
+
+
+SELECT authordata.publication.* FROM authordata.publication
+INNER JOIN authordata.author_publication ON authordata.publication.pid = authordata.author_publication.pid
+WHERE authordata.author_publication.aid = 2 and authordata.publication.type_pub='comics';
+
 
 

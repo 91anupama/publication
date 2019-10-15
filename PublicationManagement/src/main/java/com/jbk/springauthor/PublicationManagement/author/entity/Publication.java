@@ -1,12 +1,11 @@
 package com.jbk.springauthor.PublicationManagement.author.entity;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,9 +21,6 @@ public class Publication  implements java.io.Serializable {
 
     // Fields    
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,10 +41,10 @@ public class Publication  implements java.io.Serializable {
 	@Column(name="type_pub")
      private String type_pub;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinTable(name = "author_publication", joinColumns = { @JoinColumn(name = "pid") }, inverseJoinColumns = {
 			@JoinColumn(name = "aid") })
-	private List<Author> authors = new ArrayList<Author>();
+	private Set<Author> authors=new HashSet<>();
 	
 	public Publication() {
 		super();
@@ -58,7 +54,7 @@ public class Publication  implements java.io.Serializable {
 
 	
 	public Publication(String title, String pyear, String genre, String hero, String type_maz, String type_pub,
-			List<Author> authors) {
+			Set<Author> authors) {
 		super();
 		this.title = title;
 		this.pyear = pyear;
@@ -142,13 +138,13 @@ public class Publication  implements java.io.Serializable {
 
 
 
-	public List<Author> getAuthors() {
+	public Set<Author> getAuthors() {
 		return authors;
 	}
 
 
 
-	public void setAuthors(List<Author> authors) {
+	public void setAuthors(Set<Author> authors) {
 		this.authors = authors;
 	}
 

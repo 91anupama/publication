@@ -12,7 +12,6 @@ import com.jbk.springauthor.PublicationManagement.publication.entity.Publication
 @Repository
 public class PublicationDaoImpl implements PublicationDao {
 
-
 	@Autowired
 	EntityManager entityManager;
 
@@ -23,7 +22,6 @@ public class PublicationDaoImpl implements PublicationDao {
 		List<Publication> publications = query.getResultList();
 		return publications;
 	}
-
 
 	@Override
 	public Publication findById(int pid) {
@@ -54,6 +52,93 @@ public class PublicationDaoImpl implements PublicationDao {
 	public void saveorupdate(Publication publication) {
 		Session session = entityManager.unwrap(Session.class);
 		session.saveOrUpdate(publication);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Publication> getPublicationWithAuthor(String author_name) {
+		Session session = entityManager.unwrap(Session.class);
+		String[] authors = { author_name };
+		String hql = "select distinct p from Publication p " + "join p.authors a "
+				+ "where a.author_name in (:authors)";
+		@SuppressWarnings("rawtypes")
+		Query query = session.createQuery(hql);
+		query.setParameterList("authors", authors);
+		List<Publication> publications = query.list();
+		return publications;
+		/*
+		 * Session session = entityManager.unwrap(Session.class);
+		 * 
+		 * @SuppressWarnings("unchecked") String
+		 * sql="select * from Publication p join p.authors a where p.aid = :aid";
+		 * Query<Publication> query = session.createSQLQuery(sql);
+		 * query.setInteger("aid", 1); List publications = query.list(); return
+		 * publications;
+		 */
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public List<Publication> getPublicationWithAuthorType_p(String author_name, String type_pub) {
+		Session session = entityManager.unwrap(Session.class);
+		String[] authors = { author_name };
+		String hql = "select distinct p from Publication p " + "join p.authors a "
+				+ "where a.author_name in (:authors) and p.type_pub = :type_pub";
+		Query query = session.createQuery(hql);
+		query.setParameterList("authors", authors);
+		query.setParameter("type_pub", type_pub);
+		List<Publication> publications = query.list();
+		return publications;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<Publication> getPublicationWithAuthorType_p_sub_type(String author_name, String type_pub,
+			String sub_type,String sub_type_val) {
+
+		String hero = "hero";
+		String genre = "genre";
+		String type_maz = "type_maz";
+		List<Publication> publications=null;
+		if (hero.equals(sub_type)) {
+			Session session = entityManager.unwrap(Session.class);
+			String[] authors = { author_name };
+			String hql = "select distinct p from Publication p " + "join p.authors a "
+					+ "where a.author_name in (:authors) and p.type_pub = :type_pub and p.hero = :sub_type_val";
+			Query query = session.createQuery(hql);
+			query.setParameterList("authors", authors);
+			query.setParameter("type_pub", type_pub);
+			query.setParameter("sub_type_val", sub_type_val);
+			publications = query.list();
+
+		}
+
+		if (genre.equals(sub_type)) {
+			Session session = entityManager.unwrap(Session.class);
+			String[] authors = { author_name };
+			String hql = "select distinct p from Publication p " + "join p.authors a "
+					+ "where a.author_name in (:authors) and p.type_pub = :type_pub and p.genre = :sub_type";
+			Query query = session.createQuery(hql);
+			query.setParameterList("authors", authors);
+			query.setParameter("type_pub", type_pub);
+			query.setParameter("sub_type", genre);
+			publications = query.list();
+
+		}
+		if (type_maz.equals(sub_type)) {
+			Session session = entityManager.unwrap(Session.class);
+			String[] authors = { author_name };
+			String hql = "select distinct p from Publication p " + "join p.authors a "
+					+ "where a.author_name in (:authors) and p.type_pub = :type_pub and p.type_maz = :sub_type";
+			Query query = session.createQuery(hql);
+			query.setParameterList("authors", authors);
+			query.setParameter("type_pub", type_pub);
+			query.setParameter("sub_type", type_maz);
+			publications = query.list();
+
+		}
+		return publications;
+
 	}
 
 }
