@@ -44,11 +44,11 @@ public class PublicationServiceImpl implements PublicationService {
 
 	}
 
-	@Override
-	public List<Publication> getPublicationWithAuthor(String author_name) {
-		
-		return publicationDao.getPublicationWithAuthor(author_name);
-	}
+//	@Override
+//	public List<Publication> getPublicationWithAuthor(String author_name) {
+//		
+//		return publicationDao.getPublicationWithAuthor(author_name);
+//	}
 
 
 	@Override

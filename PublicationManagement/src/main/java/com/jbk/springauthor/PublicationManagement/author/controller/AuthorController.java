@@ -1,7 +1,12 @@
 package com.jbk.springauthor.PublicationManagement.author.controller;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.jbk.springauthor.PublicationManagement.author.entity.Author;
 import com.jbk.springauthor.PublicationManagement.author.service.AuthorService;
+import com.jbk.springauthor.PublicationManagement.exception.author.DBException.NoData;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -32,11 +38,12 @@ public class AuthorController {
 	
 	
 		@PostMapping("/author/create")
-	public void createAuthor(@RequestBody Author author) {
-		authorService.save(author);
-	
-	}
-	
+		public ResponseEntity<Author> createAuthor ( @Valid @RequestBody Author author)
+		{
+		   authorService.save(author);
+		    return new ResponseEntity<Author>(author, HttpStatus.OK);
+		}
+		
 	
 		@PostMapping("/author/update/{aid}")
 		public void updateAuthor(@RequestBody Author author,@PathVariable int aid) {
@@ -45,13 +52,14 @@ public class AuthorController {
 		
 		
 		@GetMapping("/author/findauthor/{aid}")
-		public Author  findById(@PathVariable int aid) {
-			Author author = authorService.findById(aid);
-			if(author == null) {
-				throw new RuntimeException("Author not found"+aid);
-			}
-		
-			return author;
+		public ResponseEntity<Author> findById (@PathVariable int aid) throws Exception
+		{
+		   Author author = authorService.findById(aid);
+		     
+		    if(author == null) {
+		         throw new NoData("No data found for aid : " + aid);
+		    }
+		    return new ResponseEntity<Author>(author, HttpStatus.OK);
 		}
 		
 		@DeleteMapping("/author/delete/{aid}")

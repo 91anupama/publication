@@ -2,7 +2,11 @@ package com.jbk.springauthor.PublicationManagement.publication.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.jbk.springauthor.PublicationManagement.author.entity.Author;
+import com.jbk.springauthor.PublicationManagement.exception.publication.DBException.NoData;
 import com.jbk.springauthor.PublicationManagement.publication.entity.Publication;
 import com.jbk.springauthor.PublicationManagement.publication.service.PublicationService;
 
@@ -31,23 +38,27 @@ public class PublicationController {
 	}
 
 	@GetMapping("/publication/findpublication/{pid}")
-	public Publication getPublicationByid(@PathVariable int pid) {
-		Publication publication = publicationService.findById(pid);
-		if (publication == null) {
-			throw new RuntimeException("Publication not found" + pid);
-		}
-		return publication;
+	public ResponseEntity<Publication> getPublicationByid(@PathVariable int pid) throws NoData {
+		{
+			Publication publication = publicationService.findById(pid);
+			     
+			    if(publication == null) {
+			         throw new NoData("No data found for pid : " + pid);
+			    }
+			    return new ResponseEntity<Publication>(publication, HttpStatus.OK);
+			}
+			
+
 	}
-
-
 
 	@PostMapping("/publication/add")
 
-	public Publication createPublication(@RequestBody Publication publication) {		//publication.setPid(0);
-		publicationService.save(publication);
-
-		return publication;
-	}
+			//publication.setPid(0);
+		public ResponseEntity<Publication> createPublication ( @Valid @RequestBody Publication publication )
+		{
+		  publicationService.save(publication);
+		    return new ResponseEntity<Publication>(publication, HttpStatus.OK);
+		}
 
 
 	@PostMapping("/publication/update/{pid}")
@@ -63,11 +74,11 @@ public class PublicationController {
 	}
 	
 
-	@PostMapping("/publication/getpublication_withauthor")
-	public List<Publication> getPublicationWithAuthor(@RequestParam String author_name) {
-		
-		return publicationService.getPublicationWithAuthor(author_name);
-	}
+//	@PostMapping("/publication/getpublication_withauthor")
+//	public List<Publication> getPublicationWithAuthor(@RequestParam String author_name) {
+//		
+//		return publicationService.getPublicationWithAuthor(author_name);
+//	}
 	
 	@PostMapping("/publication/getpublication_with_author_type_p")
 	public List<Publication> getPublicationWithAuthorType_p(@RequestParam String author_name,@RequestParam String type_pub) {
@@ -80,11 +91,12 @@ public class PublicationController {
 		
 		return publicationService.getPublicationWithAuthorType_p_sub_type(author_name,type_pub,sub_type,sub_type_val);
 
-	@PostMapping("/getpublicationwithauthor")
-	public List<Publication> getPublicationWithAuthor(@RequestParam String author_name) {
-		
-		return publicationService.getPublicationWithAuthor(author_name);
+//	@PostMapping("/getpublicationwithauthor")
+//	public List<Publication> getPublicationWithAuthor(@RequestParam String author_name) {
+//		
+//		return publicationService.getPublicationWithAuthor(author_name);
+//
+//	}
 
-	}
-
+}
 }

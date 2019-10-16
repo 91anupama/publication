@@ -4,19 +4,25 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.jbk.springauthor.PublicationManagement.author.dao.impl.AuthorDaoImpl;
 import com.jbk.springauthor.PublicationManagement.publication.dao.PublicationDao;
 import com.jbk.springauthor.PublicationManagement.publication.entity.Publication;
 
 @Repository
 public class PublicationDaoImpl implements PublicationDao {
+	private static  final Logger LOGGER =LoggerFactory.getLogger(PublicationDaoImpl.class);
 
 	@Autowired
 	EntityManager entityManager;
 
 	@Override
 	public List<Publication> findAll() {
+		LOGGER.info("Inside Publication FindAll");
 		Session session = entityManager.unwrap(Session.class);
 		Query<Publication> query = session.createQuery("from Publication", Publication.class);
 		List<Publication> publications = query.getResultList();
@@ -25,6 +31,7 @@ public class PublicationDaoImpl implements PublicationDao {
 
 	@Override
 	public Publication findById(int pid) {
+		LOGGER.info("Inside Publication findById");
 		Session session = entityManager.unwrap(Session.class);
 		Publication publication = session.get(Publication.class, pid);
 		return publication;
@@ -32,6 +39,7 @@ public class PublicationDaoImpl implements PublicationDao {
 
 	@Override
 	public void save(Publication publication) {
+		LOGGER.info("Inside Publication save");
 		Session session = entityManager.unwrap(Session.class);
 		session.save(publication);
 
@@ -39,6 +47,7 @@ public class PublicationDaoImpl implements PublicationDao {
 
 	@Override
 	public void deleteById(int pid) {
+		LOGGER.info("Inside Publication deleteById");
 		Session session = entityManager.unwrap(Session.class);
 		// delete object with primary key
 //		Query query = session.createQuery("delete from publication where id=:pid");
@@ -50,6 +59,7 @@ public class PublicationDaoImpl implements PublicationDao {
 
 	@Override
 	public void saveorupdate(Publication publication) {
+		LOGGER.info("Inside Publication saveorupdate");
 		Session session = entityManager.unwrap(Session.class);
 		session.saveOrUpdate(publication);
 	}
