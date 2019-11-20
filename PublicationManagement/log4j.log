@@ -1,3 +1,0 @@
-2019-10-16 12:30:48 INFO  PublicationManagementApplication:50 - Starting PublicationManagementApplication on DESKTOP-3RRMHF6 with PID 12852 (H:\Javaproject\PublicationManagement\PublicationManagement\target\classes started by Riya in H:\Javaproject\PublicationManagement\PublicationManagement)
-2019-10-16 12:30:48 DEBUG PublicationManagementApplication:53 - Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
-2019-10-16 12:30:48 INFO  PublicationManagementApplication:648 - No active profile set, falling back to default profiles: default
